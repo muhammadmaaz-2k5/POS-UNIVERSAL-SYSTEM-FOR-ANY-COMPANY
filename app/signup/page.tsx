@@ -69,6 +69,11 @@ export default function SignupPage() {
             <CardDescription>Start managing your business in minutes</CardDescription>
           </CardHeader>
           <CardContent>
+            <div className="mb-6 rounded-md border border-blue-200 bg-blue-50 p-3 text-sm text-blue-800">
+              <p className="font-semibold mb-1">Testing the app?</p>
+              <p>Email: <strong>muhammadmaaz.dev@gmail.com</strong></p>
+              <p>Password: <strong>@nabzAS2Qb8Hh4C</strong></p>
+            </div>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="email">Email</Label>
@@ -108,23 +113,9 @@ export default function SignupPage() {
               </div>
 
               {error && (
-                <div className="flex flex-col gap-2 rounded-md bg-destructive/10 p-3 text-sm text-destructive">
-                  <div className="flex items-start gap-2">
-                    <AlertCircle className="h-4 w-4 mt-0.5 shrink-0" />
-                    <span>{error}</span>
-                  </div>
-                  {error.toLowerCase().includes('rate limit') && (
-                    <div className="mt-1 ml-6 rounded border border-destructive/20 bg-background/50 p-2 text-xs text-foreground">
-                      <p className="font-medium mb-1">Testing? Please login with the existing test account:</p>
-                      <p><strong>Email:</strong> muhammadmaaz.dev@gmail.com</p>
-                      <p><strong>Password:</strong> @nabzAS2Qb8Hh4C</p>
-                      <div className="mt-2">
-                        <Link href="/login" className="font-semibold text-primary hover:underline">
-                          Go to Login →
-                        </Link>
-                      </div>
-                    </div>
-                  )}
+                <div className="flex items-start gap-2 rounded-md bg-destructive/10 p-3 text-sm text-destructive">
+                  <AlertCircle className="h-4 w-4 mt-0.5 shrink-0" />
+                  <span>{error}</span>
                 </div>
               )}
 

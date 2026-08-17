@@ -60,6 +60,11 @@ export default function LoginPage() {
             <CardDescription>Sign in to your account to continue</CardDescription>
           </CardHeader>
           <CardContent>
+            <div className="mb-6 rounded-md border border-blue-200 bg-blue-50 p-3 text-sm text-blue-800">
+              <p className="font-semibold mb-1">Testing the app?</p>
+              <p>Email: <strong>muhammadmaaz.dev@gmail.com</strong></p>
+              <p>Password: <strong>@nabzAS2Qb8Hh4C</strong></p>
+            </div>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="email">Email</Label>
