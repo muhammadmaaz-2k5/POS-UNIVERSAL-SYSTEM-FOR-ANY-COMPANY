@@ -11,7 +11,7 @@ const MODEL = 'groq/compound';
 
 // ─── Supabase tool functions ──────────────────────────────────────────────────
 
-async function getLowStockProducts(supabase: ReturnType<typeof createClient>, companyId: string) {
+async function getLowStockProducts(supabase: any, companyId: string) {
   const { data } = await supabase
     .from('products')
     .select('name, sku, stock_quantity, low_stock_threshold, price')
@@ -23,7 +23,7 @@ async function getLowStockProducts(supabase: ReturnType<typeof createClient>, co
 }
 
 async function getSalesSummary(
-  supabase: ReturnType<typeof createClient>,
+  supabase: any,
   companyId: string,
   period: 'today' | 'week' | 'month' | 'year'
 ) {
@@ -55,7 +55,7 @@ async function getSalesSummary(
 }
 
 async function getTopProducts(
-  supabase: ReturnType<typeof createClient>,
+  supabase: any,
   companyId: string,
   period: 'week' | 'month' | 'year'
 ) {
@@ -85,7 +85,7 @@ async function getTopProducts(
 }
 
 async function getTopCustomers(
-  supabase: ReturnType<typeof createClient>,
+  supabase: any,
   companyId: string,
   period: 'week' | 'month' | 'year'
 ) {
@@ -111,7 +111,7 @@ async function getTopCustomers(
 }
 
 async function getInventoryOverview(
-  supabase: ReturnType<typeof createClient>,
+  supabase: any,
   companyId: string
 ) {
   const { data } = await supabase
@@ -129,6 +129,28 @@ async function getInventoryOverview(
 }
 
 // ─── Keyword-based router (no AI needed, 100% reliable) ─────────────────────
+
+async function getCustomerStats(
+  supabase: any,
+  companyId: string
+) {
+  const { data, count } = await supabase
+    .from('customers')
+    .select('name, email, phone, created_at', { count: 'exact' })
+    .eq('company_id', companyId)
+    .order('created_at', { ascending: false })
+    .limit(10);
+
+  return {
+    totalCustomers: count ?? (data?.length ?? 0),
+    recentCustomers: (data || []).map((c: any) => ({
+      name: c.name,
+      email: c.email || 'N/A',
+      phone: c.phone || 'N/A',
+      joined: new Date(c.created_at).toLocaleDateString(),
+    })),
+  };
+}
 
 type ToolCall =
   | { name: 'get_low_stock_products' }
